@@ -27,9 +27,9 @@
 
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
 #include "Kaleidoscope-LEDEffect-Breathe.h"
-#include "Kaleidoscope-LEDEffect-Chase.h"
 #include "Kaleidoscope-LEDEffect-Rainbow.h"
 #include "Kaleidoscope-LED-Wavepool.h"
+#include "Kaleidoscope-IdleLEDs.h"
 
 // Give a name to the macros!
 enum {
@@ -80,17 +80,16 @@ enum {
 KEYMAPS(
   QWERTY,
   GENERIC_FN2,
-  NUMPAD
-)
+  NUMPAD)
 
 
-static kaleidoscope::plugin::LEDSolidColor solidRed(60, 0, 0);
-static kaleidoscope::plugin::LEDSolidColor solidOrange(60, 20, 0);
-static kaleidoscope::plugin::LEDSolidColor solidYellow(40, 35, 0);
-static kaleidoscope::plugin::LEDSolidColor solidGreen(0, 100, 0);
-static kaleidoscope::plugin::LEDSolidColor solidBlue(0, 15, 100);
+static kaleidoscope::plugin::LEDSolidColor solidRed(125, 0, 0);
+static kaleidoscope::plugin::LEDSolidColor solidOrange(125, 80, 0);
+static kaleidoscope::plugin::LEDSolidColor solidYellow(125, 35, 0);
+static kaleidoscope::plugin::LEDSolidColor solidGreen(0, 125, 0);
+static kaleidoscope::plugin::LEDSolidColor solidBlue(0, 50, 125);
 static kaleidoscope::plugin::LEDSolidColor solidIndigo(0, 0, 100);
-static kaleidoscope::plugin::LEDSolidColor solidViolet(70, 0, 60);
+static kaleidoscope::plugin::LEDSolidColor solidViolet(140, 0, 120);
 
 
 const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
@@ -129,9 +128,9 @@ USE_MAGIC_COMBOS({
 });
 
 KALEIDOSCOPE_INIT_PLUGINS(HardwareTestMode,
-                          LEDControl, LEDOff,
+                          LEDControl, LEDOff, IdleLEDs,
                           solidRed, solidOrange, solidYellow, solidGreen, solidBlue, solidIndigo, solidViolet,
-                          LEDBreatheEffect, LEDRainbowEffect, LEDChaseEffect, WavepoolEffect, NumPad,
+                          LEDRainbowEffect, WavepoolEffect, NumPad,
                           Macros,
                           MouseKeys,
                           MagicCombo);
@@ -141,6 +140,9 @@ void setup() {
 
   NumPad.numPadLayer = NUMPAD_KEYMAP;
   LEDOff.activate();
+  LEDRainbowEffect.brightness(150);
+  LEDRainbowWaveEffect.brightness(150);
+  LEDRainbowWaveEffect.update_delay(50);
 }
 
 
