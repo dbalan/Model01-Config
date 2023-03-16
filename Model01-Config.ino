@@ -24,6 +24,7 @@
 #include "Kaleidoscope-NumPad.h"
 #include "Kaleidoscope-HardwareTestMode.h"
 #include "Kaleidoscope-MagicCombo.h"
+#include "Kaleidoscope-SpaceCadet.h"
 
 #include "Kaleidoscope-LEDEffect-SolidColor.h"
 #include "Kaleidoscope-LEDEffect-Breathe.h"
@@ -83,11 +84,9 @@ KEYMAPS(
   NUMPAD)
 
 
-static kaleidoscope::plugin::LEDSolidColor solidRed(125, 0, 0);
+
 static kaleidoscope::plugin::LEDSolidColor solidOrange(125, 80, 0);
-static kaleidoscope::plugin::LEDSolidColor solidYellow(125, 35, 0);
 static kaleidoscope::plugin::LEDSolidColor solidGreen(0, 125, 0);
-static kaleidoscope::plugin::LEDSolidColor solidBlue(0, 50, 125);
 static kaleidoscope::plugin::LEDSolidColor solidIndigo(0, 0, 100);
 static kaleidoscope::plugin::LEDSolidColor solidViolet(140, 0, 120);
 
@@ -129,8 +128,9 @@ USE_MAGIC_COMBOS({
 
 KALEIDOSCOPE_INIT_PLUGINS(HardwareTestMode,
                           LEDControl, LEDOff, IdleLEDs,
-                          solidRed, solidOrange, solidYellow, solidGreen, solidBlue, solidIndigo, solidViolet,
-                          LEDRainbowEffect, WavepoolEffect, NumPad,
+                          solidOrange, solidGreen, solidIndigo, solidViolet,
+                          LEDRainbowEffect, WavepoolEffect,
+			  SpaceCadet, NumPad,
                           Macros,
                           MouseKeys,
                           MagicCombo);
