@@ -20,22 +20,23 @@
 #include "Kaleidoscope.h"
 #include "Kaleidoscope-MouseKeys.h"
 #include "Kaleidoscope-Macros.h"
-#include "Kaleidoscope-LEDControl.h"
+#include <Kaleidoscope-LEDControl.h>
 #include "Kaleidoscope-NumPad.h"
 #include "Kaleidoscope-HardwareTestMode.h"
 #include "Kaleidoscope-MagicCombo.h"
 #include "Kaleidoscope-SpaceCadet.h"
 
-#include "Kaleidoscope-LEDEffect-SolidColor.h"
-#include "Kaleidoscope-LEDEffect-Breathe.h"
-#include "Kaleidoscope-LEDEffect-Rainbow.h"
-#include "Kaleidoscope-LED-Wavepool.h"
-#include "Kaleidoscope-IdleLEDs.h"
+#include <Kaleidoscope-LEDEffect-SolidColor.h>
+#include <Kaleidoscope-LEDEffect-Breathe.h>
+#include <Kaleidoscope-LEDEffect-Rainbow.h>
+#include <Kaleidoscope-LED-Wavepool.h>
+#include <Kaleidoscope-IdleLEDs.h>
 
 // Give a name to the macros!
 enum {
   MACRO_MODEL01,
   MACRO_PRELUDE,
+  MACRO_SWAY_SCRATCHPAD,
 };
 
 #define NUMPAD_KEYMAP 2
@@ -50,7 +51,7 @@ enum {
                                                                                     ___, \
 \
 	LSHIFT(LGUI(Key_Enter)),        Key_F6,         Key_F7,            Key_F8,                   Key_F9,              ___,                   ___, \
-        Key_Delete, Consumer_PlaySlashPause,  Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_LeftBracket, Key_RightBracket, System_Sleep, \
+        Key_Delete, Consumer_PlaySlashPause,  Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_LeftBracket, Key_RightBracket, ___, \
                     Key_LeftArrow,            Key_DownArrow,        Key_UpArrow,           Key_RightArrow,  Key_F11,                   Key_F12, \
         ___,        Consumer_VolumeDecrement, Consumer_VolumeIncrement,   Consumer_ScanPreviousTrack,   Consumer_ScanNextTrack,    Key_Backslash,      Key_Pipe, \
         Key_RightShift, Key_RightAlt, Key_mouseBtnR, Key_RightControl, \
@@ -70,10 +71,10 @@ enum {
 )
 
 #define QWERTY KEYMAP ( \
-        LALT(Key_X),          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,  M(MACRO_PRELUDE),        Key_6, Key_7, Key_8,     Key_9,      Key_0,         Key_KeypadNumLock, \
-        Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,                   Key_Enter,  Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals, \
-        Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,                                        Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote, \
-        Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,                Key_RightGui,       Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus, \
+        LALT(Key_X),          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,      M(MACRO_SWAY_SCRATCHPAD),        Key_6, Key_7, Key_8,     Key_9,      Key_0,         Key_KeypadNumLock, \
+        Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,                        Key_Enter,  Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals, \
+        Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,                                             Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote, \
+        Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,                     Key_RightGui,       Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus, \
                  Key_LeftControl, Key_Backspace, Key_LeftShift, Key_LeftAlt,        Key_RightAlt, Key_RightShift, Key_Spacebar, Key_RightControl, \
                                               Key_KeymapNext_Momentary,         Key_KeymapNext_Momentary \
 )
@@ -91,17 +92,20 @@ static kaleidoscope::plugin::LEDSolidColor solidIndigo(0, 0, 100);
 static kaleidoscope::plugin::LEDSolidColor solidViolet(140, 0, 120);
 
 
-const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
+const macro_t *macroAction(uint8_t macroIndex, KeyEvent &event) {
   switch (macroIndex) {
   case MACRO_MODEL01:
-    return MACRODOWN(I(25),
-                     D(LeftShift), T(M), U(LeftShift), T(O), T(D), T(E), T(L),
-                     T(Spacebar),
-                     W(100),
-                     T(0), T(1) );
-  case MACRO_PRELUDE:
-    if (keyToggledOn(keyState)) {
-      return MACRODOWN(D(LeftControl), T(C), U(LeftControl), T(P));
+    if (keyToggledOn(event.state)) {
+      return MACRO(I(25),
+                   D(LeftShift), T(M), U(LeftShift), T(O), T(D), T(E), T(L),
+                   T(Spacebar),
+                   W(100),
+                   T(0), T(1) );
+    }
+    break;
+  case MACRO_SWAY_SCRATCHPAD:
+    if (keyToggledOn(event.state)) {
+      return MACRO(D(RightGui), D(LeftShift), T(Minus), U(LeftShift), U(RightGui));
     }
     break;
   }
@@ -130,7 +134,7 @@ KALEIDOSCOPE_INIT_PLUGINS(HardwareTestMode,
                           LEDControl, LEDOff, IdleLEDs,
                           solidOrange, solidGreen, solidIndigo, solidViolet,
                           LEDRainbowEffect, WavepoolEffect,
-			  SpaceCadet, NumPad,
+                          SpaceCadet, NumPad,
                           Macros,
                           MouseKeys,
                           MagicCombo);
