@@ -1,17 +1,18 @@
 with import <nixpkgs> { };
 
-buildFHSUserEnv {
+buildFHSEnv {
   name = "enter-fhs";
-  targetPkgs = pkgs: with pkgs; [
-    arduino
-    wmname
-  ];
+  targetPkgs =
+    pkgs: with pkgs; [
+      arduino
+      wmname
+    ];
   #multiPkgs = pkgs: with pkgs;
   #  [ zlib
-  #    
+  #
   #];
   profile = ''
-  export PS1="fhs%# "
+    export PS1="fhs%# "
   '';
   runScript = "bash -c 'wmname LG3D && arduino Model01-Config.ino'";
 }

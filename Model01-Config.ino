@@ -43,14 +43,14 @@ enum {
 
 
 #define GENERIC_FN2  KEYMAP_STACKED ( \
-         ___,      Key_F1,        Key_F2,      Key_F3,     Key_F4,          Key_F5,          XXX,            \
+         ___,      Key_F1,        Key_F2,      Key_F3,     Key_F4,          Key_F5,          Key_F12,            \
         Key_Tab,  Key_mouseBtnM, Key_mouseUp, ___,        Key_mouseWarpNW, Key_mouseWarpNE, Consumer_ScanNextTrack, \
         Key_Home, Key_mouseL,    Key_mouseDn, Key_mouseR, Key_mouseWarpSW, Key_mouseWarpSE, \
         Key_End,  Key_Z,         Key_X,       Key_C,      Key_V,           Key_mouseWarpEnd, ___,    \
                                                         Key_LeftControl, Key_mouseBtnL, Key_LeftGui, Key_LeftShift,                \
                                                                                     ___, \
 \
-	LSHIFT(LGUI(Key_Enter)),        Key_F6,         Key_F7,            Key_F8,                   Key_F9,              ___,                   ___, \
+	M(MACRO_SWAY_SCRATCHPAD),        Key_F6,         Key_F7,            Key_F8,                   Key_F9,              ___,                   ___, \
         Key_Delete, Consumer_PlaySlashPause,  Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_LeftBracket, Key_RightBracket, ___, \
                     Key_LeftArrow,            Key_DownArrow,        Key_UpArrow,           Key_RightArrow,  Key_F11,                   Key_F12, \
         ___,        Consumer_VolumeDecrement, Consumer_VolumeIncrement,   Consumer_ScanPreviousTrack,   Consumer_ScanNextTrack,    Key_Backslash,      Key_Pipe, \
@@ -71,7 +71,7 @@ enum {
 )
 
 #define QWERTY KEYMAP ( \
-        LALT(Key_X),          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,      M(MACRO_SWAY_SCRATCHPAD),        Key_6, Key_7, Key_8,     Key_9,      Key_0,         Key_KeypadNumLock, \
+        LALT(Key_X),          Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,      LSHIFT(LGUI(Key_Enter)),        Key_6, Key_7, Key_8,     Key_9,      Key_0,         Key_KeypadNumLock, \
         Key_Backtick, Key_Q, Key_W, Key_E, Key_R, Key_T, Key_Tab,                        Key_Enter,  Key_Y, Key_U, Key_I,     Key_O,      Key_P,         Key_Equals, \
         Key_PageUp,   Key_A, Key_S, Key_D, Key_F, Key_G,                                             Key_H, Key_J, Key_K,     Key_L,      Key_Semicolon, Key_Quote, \
         Key_PageDown, Key_Z, Key_X, Key_C, Key_V, Key_B, Key_Escape,                     Key_RightGui,       Key_N, Key_M, Key_Comma, Key_Period, Key_Slash,     Key_Minus, \
