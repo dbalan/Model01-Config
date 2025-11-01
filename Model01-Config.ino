@@ -20,7 +20,7 @@
 #include "Kaleidoscope.h"
 #include "Kaleidoscope-MouseKeys.h"
 #include "Kaleidoscope-Macros.h"
-#include <Kaleidoscope-LEDControl.h>
+#include "Kaleidoscope-LEDControl.h" 
 #include "Kaleidoscope-NumPad.h"
 #include "Kaleidoscope-HardwareTestMode.h"
 #include "Kaleidoscope-MagicCombo.h"
@@ -31,6 +31,7 @@
 #include <Kaleidoscope-LEDEffect-Rainbow.h>
 #include <Kaleidoscope-LED-Wavepool.h>
 #include <Kaleidoscope-IdleLEDs.h>
+#include <Kaleidoscope-LED-Stalker.h>
 
 // Give a name to the macros!
 enum {
@@ -131,7 +132,7 @@ USE_MAGIC_COMBOS({
 });
 
 KALEIDOSCOPE_INIT_PLUGINS(HardwareTestMode,
-                          LEDControl, LEDOff, IdleLEDs,
+                          LEDControl, LEDOff, IdleLEDs, StalkerEffect,
                           solidOrange, solidGreen, solidIndigo, solidViolet,
                           LEDRainbowEffect, WavepoolEffect,
                           SpaceCadet, NumPad,
@@ -147,6 +148,8 @@ void setup() {
   LEDRainbowEffect.brightness(150);
   LEDRainbowWaveEffect.brightness(150);
   LEDRainbowWaveEffect.update_delay(50);
+  StalkerEffect.variant = STALKER(Rainbow); //STALKER(Haunt, (CRGB(0, 128, 0)));
+  StalkerEffect.activate();
 }
 
 
